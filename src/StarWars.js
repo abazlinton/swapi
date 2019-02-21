@@ -11,7 +11,6 @@ const StarWars = () => {
   const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
-    if (searchTerm) {
       fetch(`https://swapi.co/api/people?search=${searchTerm}`)
         .then(res => res.json())
         .then(data => {
@@ -21,7 +20,6 @@ const StarWars = () => {
           setSelectedCharacter(newSelectedCharacter)
           setselectedCharacterHomeWorld({})
         })
-    }
   }, [searchTerm])
 
   useEffect(() => {

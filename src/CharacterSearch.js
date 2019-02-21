@@ -10,7 +10,7 @@ const CharacterSearch = ({ onSearchText }) => {
   >
     <input 
       id="searchTerm"
-      autocomplete="off"
+      autoComplete="off"
     >
     </input>
     <input 
