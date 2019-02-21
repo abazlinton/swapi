@@ -2,7 +2,9 @@ import React from 'react'
 
 const CharacterDetail = ({character, homeworld}) => {
 
-  if (!character) return null
+  if (!character) character = {}
+  if (!homeworld) homeworld = {}
+
   
   return <dl>
     <dt>Name</dt>
@@ -10,7 +12,7 @@ const CharacterDetail = ({character, homeworld}) => {
     <dt>Gender</dt>
     <dd>{character.gender}</dd>
     <dt>Homeworld</dt>
-    <dd>{homeworld ? homeworld.name : ""}</dd>
+    <dd>{homeworld.name}</dd>
   </dl>
 }
 

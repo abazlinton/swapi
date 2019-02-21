@@ -6,7 +6,7 @@ import CharacterSearch from './CharacterSearch';
 const StarWars = () => {
 
   const [characters, setCharacters] = useState([])
-  const [selectedCharacter, setSelectedCharacter] = useState({})
+  const [selectedCharacterIndex, setSelectedCharacterIndex] = useState(-1)
   const [selectedCharacterHomeWorld, setselectedCharacterHomeWorld] = useState({})
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -15,24 +15,23 @@ const StarWars = () => {
         .then(res => res.json())
         .then(data => {
           setCharacters(data.results)
-          let newSelectedCharacter = {}
-          if (data.count > 0) newSelectedCharacter = data.results[0]
-          setSelectedCharacter(newSelectedCharacter)
+          setSelectedCharacterIndex(0)
           setselectedCharacterHomeWorld({})
         })
   }, [searchTerm])
 
   useEffect(() => {
+    let selectedCharacter = characters[selectedCharacterIndex]
+    if (!selectedCharacter) selectedCharacter = {}
     if (selectedCharacter.homeworld) {
       fetch(selectedCharacter.homeworld)
         .then(res => res.json())
         .then(data => setselectedCharacterHomeWorld(data))
     }
-  }, [selectedCharacter])
+  }, [selectedCharacterIndex])
 
   function handleCharacterSelected(index) {
-    const selectedCharacter = characters[index]
-    setSelectedCharacter(selectedCharacter)
+    setSelectedCharacterIndex(index)
     setselectedCharacterHomeWorld({})
   }
 
@@ -43,7 +42,7 @@ const StarWars = () => {
     return (
       <Fragment>  
         <CharacterDetail
-          character={selectedCharacter}
+          character={characters[selectedCharacterIndex]}
           homeworld={selectedCharacterHomeWorld}
         >
         </CharacterDetail>
