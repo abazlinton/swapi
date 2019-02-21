@@ -12,7 +12,7 @@ const CharacterSelect = ({ characters, onCharacterSelected }) => {
       {character.name}
     </option>)
 
-  if (options.length === 0) options = [<option key={-1}>Loading...</option>]
+  if (options.length === 0) options = [<option key={-1}>Enter search above</option>]
 
   function handleChange(e) {
     onCharacterSelected(e.target.value)
