@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import ReactJson from 'react-json-view'
 
-const CharacterDetail = ({character, homeworld}) => {
+const CharacterDetail = ({ character, homeworld }) => {
 
   if (!character) character = {}
   if (!homeworld) homeworld = {}
 
-  
-  return <dl>
-    <dt>Name</dt>
-    <dd>{character.name}</dd>
-    <dt>Gender</dt>
-    <dd>{character.gender}</dd>
-    <dt>Homeworld</dt>
-    <dd>{homeworld.name}</dd>
-  </dl>
+  return <Fragment>
+    <dl>
+      <dt>Name</dt>
+      <dd>{character.name}</dd>
+      <dt>Gender</dt>
+      <dd>{character.gender}</dd>
+      <dt>Homeworld</dt>
+      <dd>{homeworld.name}</dd>
+    </dl>
+    <ReactJson
+      src={character}
+      theme="summerfruit:inverted"
+    />
+  </Fragment>
+
+
 }
 
 export default CharacterDetail

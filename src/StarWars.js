@@ -40,12 +40,7 @@ const StarWars = () => {
   }
 
     return (
-      <Fragment>  
-        <CharacterDetail
-          character={characters[selectedCharacterIndex]}
-          homeworld={selectedCharacterHomeWorld}
-        >
-        </CharacterDetail>
+      <Fragment>   
         <CharacterSearch
           onSearchText={handleSearchText}
         />
@@ -53,6 +48,11 @@ const StarWars = () => {
           characters={characters}
           onCharacterSelected={handleCharacterSelected}
         />
+        <CharacterDetail
+          character={characters[selectedCharacterIndex]}
+          homeworld={selectedCharacterHomeWorld}
+        >
+        </CharacterDetail>
       </Fragment>
     )
 }
