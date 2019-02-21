@@ -1,14 +1,16 @@
 import React from 'react'
 
-const CharacterDetail = ({name, homeplanet, gender}) => {
+const CharacterDetail = ({character, homeworld}) => {
 
+  if (!character) return null
+  
   return <dl>
     <dt>Name</dt>
-    <dd>{name}</dd>
+    <dd>{character.name}</dd>
     <dt>Gender</dt>
-    <dd>{gender}</dd>
-    <dt>Homeplanet</dt>
-    <dd>{homeplanet}</dd>
+    <dd>{character.gender}</dd>
+    <dt>Homeworld</dt>
+    <dd>{homeworld ? homeworld.name : ""}</dd>
   </dl>
 }
 

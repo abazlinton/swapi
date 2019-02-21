@@ -1,54 +1,48 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import CharacterSelect from './CharacterSelect'
 import CharacterDetail from './CharacterDetail';
 
-class StarWars extends Component {
+const StarWars = () => {
 
-  constructor() {
-    super()
-    this.state = { characters: [], selectedCharacter: {}, selectedHomeWorld: {} }
-    this.handleCharacterSelected = this.handleCharacterSelected.bind(this)
+  const [characters, setCharacters] = useState([])
+  const [selectedCharacter, setSelectedCharacter] = useState({})
+  const [selectedCharacterHomeWorld, setselectedCharacterHomeWorld] = useState({})
+
+  useEffect(() => {
+    if (characters.length === 0) {
+      fetch('https://swapi.co/api/people/')
+        .then(res => res.json())
+        .then(data => setCharacters(data.results))
+    }
+  })
+
+  useEffect(() => {
+    if (selectedCharacter.homeworld) {
+      fetch(selectedCharacter.homeworld)
+        .then(res => res.json())
+        .then(data => setselectedCharacterHomeWorld(data))
+    }
+  }, [selectedCharacter])
+
+  function handleCharacterSelected(index) {
+    const selectedCharacter = characters[index]
+    setSelectedCharacter(selectedCharacter)
   }
 
-  componentDidMount() {
-    fetch('https://swapi.co/api/people/')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          characters: data.results, 
-          selectedCharacter: data.results[0]
-        })
-        this.handleCharacterSelected(0)
-      })
-  }
-
-  handleCharacterSelected(index) {
-    const selectedCharacter = this.state.characters[index]
-    this.setState({ selectedCharacter, selectedHomeWorld: {} })
-    fetch(selectedCharacter.homeworld)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ selectedHomeWorld: data })
-      })
-  }
-
-  render() {
     return (
       <Fragment>
         <CharacterSelect
-          characters={this.state.characters}
-          onCharacterSelected={this.handleCharacterSelected}
+          characters={characters}
+          onCharacterSelected={handleCharacterSelected}
         />
         <CharacterDetail
-          name={this.state.selectedCharacter.name}
-          homeplanet={this.state.selectedHomeWorld.name}
-          gender={this.state.selectedCharacter.gender}
+          character={selectedCharacter}
+          homeworld={selectedCharacterHomeWorld}
         >
         </CharacterDetail>
       </Fragment>
-
     )
-  }
+
 }
 
 export default StarWars

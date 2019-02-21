@@ -2,6 +2,8 @@ import React from 'react'
 
 const CharacterSelect = ({ characters, onCharacterSelected }) => {
 
+  if (!characters) return null;
+
   let options = characters.map((character, index) =>
     <option
       key={index}
